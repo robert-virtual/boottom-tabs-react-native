@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { Home } from './components/Home';
+import { Favorites } from './components/Favorites';
+import { Pages } from './types';
+import { UsersRouter } from './UsersRouter';
+
+
+
+const Tabs = createBottomTabNavigator<Pages>()
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer >
+      <Tabs.Navigator>
+        <Tabs.Screen 
+          options={{tabBarIcon: ({color}) => <Ionicons size={20} name="home" color={color} />}} 
+          name="Home" component={Home} />
+        <Tabs.Screen 
+          options={{tabBarIcon: ({color}) => <Ionicons size={20} name="person" color={color} />}} 
+          name="Users" component={UsersRouter} />
+        <Tabs.Screen 
+          options={{tabBarIcon: ({color}) => <Ionicons size={20} name="heart" color={color} />}} 
+          name="Favorites" component={Favorites} />
+      </Tabs.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
